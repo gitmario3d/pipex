@@ -6,14 +6,14 @@
 #    By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 10:33:13 by dparada           #+#    #+#              #
-#    Updated: 2024/05/20 13:19:47 by malena-b         ###   ########.fr        #
+#    Updated: 2024/05/24 12:10:54 by malena-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 USER = malena-b
 LIBFT = ./libft
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 SRC_DIR = src/
 OBJ_DIR = obj/

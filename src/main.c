@@ -6,7 +6,7 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 11:42:59 by malena-b          #+#    #+#             */
-/*   Updated: 2024/05/20 14:02:49 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:59:21 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	p_process(char **argv, int *pipe_fd, char **env)
 {
 	int		fd;
 
-	fd = open(argv[4], O_RDONLY);
+	fd = open(argv[4], O_WRONLY);
 	dup2(fd, 1);
 	dup2(pipe_fd[0], 0);
 	close(pipe_fd[1]);
@@ -64,6 +64,5 @@ int	main(int argc, char **argv, char **env)
 		report_and_exit(3);
 	if (pid == 0)
 		c_process(argv, pipe_fd, env);
-	else
-		p_process(argv, pipe_fd, env);
+	p_process(argv, pipe_fd, env);
 }
