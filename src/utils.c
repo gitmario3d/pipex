@@ -6,21 +6,16 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:16:06 by malena-b          #+#    #+#             */
-/*   Updated: 2024/05/27 13:20:59 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:35:19 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-void	report_and_exit(int error_code)
+void	report_and_exit(char *error_msg)
 {
-	if (error_code == 1)
-		ft_printf("Wrong input parametres (./pipex infile cmd cmd outfile).\n");
-	if (error_code == 2)
-		ft_printf("Error at pipe creation.\n");
-	if (error_code == 3)
-		ft_printf("Error at child process creation (fork).\n");
-	exit (0);
+	ft_putstr_fd(error_msg, 2);
+	exit (1);
 }
 
 void	ft_free_tab(char **tab)

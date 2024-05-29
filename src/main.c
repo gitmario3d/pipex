@@ -6,7 +6,7 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 11:42:59 by malena-b          #+#    #+#             */
-/*   Updated: 2024/05/27 13:18:35 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:16:14 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	c_process(char **argv, int *pipe_fd, char **env)
 {
 	int		fd;
 
+	waitpid(0, 0, 0);
 	fd = open(argv[1], O_RDONLY);
 	dup2(fd, 0);
 	dup2(pipe_fd[1], 1);
@@ -54,19 +55,17 @@ int	main(int argc, char **argv, char **env)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
-
+	
 	if (argc != 5)
-		report_and_exit(1);
+		report_and_exit("Wrong inputs (./pipex infile cmd cmd outfile).");
 	if (pipe(pipe_fd) == -1)
-		report_and_exit(2);
+		report_and_exit("Error at pipe creation.");
 	pid = fork();
 	if (pid == -1)
-		report_and_exit(3);
+		report_and_exit("Error at child process creation (fork).");
 	if (pid == 0)
 		c_process(argv, pipe_fd, env);
 	else
 		p_process(argv, pipe_fd, env);
-	char *c=malloc(500);
-	(void)c;
 	return (0);
 }

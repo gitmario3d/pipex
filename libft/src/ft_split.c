@@ -6,7 +6,7 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:57:35 by malena-b          #+#    #+#             */
-/*   Updated: 2024/05/09 11:36:50 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:15:39 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,33 @@ static int	ft_mallocformat(const char *s, char c)
 		count++;
 	while (s[i])
 	{
-		if (s[i] == c && s[i + 1] && s[i + 1] != c)
+		if (s[i] == '\'')
+		{
+			i++;
 			count++;
+			while (s[i] != '\'')
+				i++;
+		}
+		else
+		{
+			if (s[i] == c && s[i + 1] && s[i + 1] != c && s[i + 1] != '\'' )
+				count++;
+		}
 		i++;
 	}
 	return (count);
 }
 
-static int	ft_nextdel(const char *s, char c, int i)
+static int	nd(const char *s, char c, int i)
 {
+	if (s[i] == '\'')
+	{
+		c = '\'';
+		i++;
+	}
 	while (s[i] && s[i] != c)
+		i++;
+	if (s[i] == '\'')
 		i++;
 	return (i);
 }
@@ -45,29 +62,29 @@ static int	ft_reduce_lines(char **mat, int count)
 
 char	**ft_split(char const *s, char c)
 {
-	char	**mat;
-	int		mat_pos;
+	char	**m;
+	int		mp;
 	int		i;
 	int		count;
 
 	count = ft_mallocformat(s, c);
-	mat = (char **)malloc((count + 1) * sizeof(char *));
-	if (mat == NULL)
+	m = (char **)malloc((count + 1) * sizeof(char *));
+	if (m == NULL)
 		return (NULL);
-	i = ft_reduce_lines(mat, count);
-	mat_pos = 0;
-	while (mat_pos < count)
+	i = ft_reduce_lines(m, count);
+	mp = 0;
+	while (mp < count)
 	{
 		while (s[i])
 		{
 			if (s[i] != c && s[i])
 			{
-				mat[mat_pos++] = ft_substr(s, i, (ft_nextdel(s, c, i) - i));
-				i = ft_nextdel(s, c, i);
+				m[mp++] = ft_strtrim(ft_substr(s, i, (nd(s, c, i) - i)), "\'");
+				i = nd(s, c, i);
 			}
 			else
 				i++;
 		}
 	}
-	return (mat);
+	return (m);
 }

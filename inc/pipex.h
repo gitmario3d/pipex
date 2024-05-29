@@ -6,7 +6,7 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 11:55:36 by malena-b          #+#    #+#             */
-/*   Updated: 2024/05/20 13:32:55 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:49:47 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>  
 # include <stdlib.h>
 
-void	report_and_exit(int error_code);
+void	report_and_exit(char *error_msg);
 char	*get_path(char *cmd, char **env);
 void	ft_free_tab(char **tab);
 
