@@ -6,7 +6,7 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:16:06 by malena-b          #+#    #+#             */
-/*   Updated: 2024/05/29 12:35:19 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:55:55 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,21 @@ void	report_and_exit(char *error_msg)
 	exit (1);
 }
 
-void	ft_free_tab(char **tab)
+void	ft_free_mat(char **mat)
 {
 	size_t	i;
 
 	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	while (mat[i])
+		free(mat[i++]);
+	free(mat);
 }
 
-char	*my_getenv(char *name, char **env)
+char	*ft_getenv(char *path_name, char **env)
 {
+	char	*substr;
 	int		i;
 	int		j;
-	char	*sub;
 
 	i = 0;
 	while (env[i])
@@ -43,42 +40,42 @@ char	*my_getenv(char *name, char **env)
 		j = 0;
 		while (env[i][j] && env[i][j] != '=')
 			j++;
-		sub = ft_substr(env[i], 0, j);
-		if (ft_strncmp(sub, name, ft_strlen(sub)) == 0)
+		substr = ft_substr(env[i], 0, j);
+		if (ft_strncmp(substr, path_name, ft_strlen(substr)) == 0)
 		{
-			free(sub);
+			free(substr);
 			return (env[i] + j + 1);
 		}
-		free(sub);
+		free(substr);
 		i++;
 	}
 	return (NULL);
 }
 
-char	*get_path(char *cmd, char **env)
+char	*get_path(char *commands, char **env)
 {
 	int		i;
 	char	*exec;
-	char	**allpath;
-	char	*path_part;
-	char	**s_cmd;
+	char	**total_paths;
+	char	*actual_path;
+	char	**s_commands;
 
 	i = -1;
-	allpath = ft_split(my_getenv("PATH", env), ':');
-	s_cmd = ft_split(cmd, ' ');
-	while (allpath[++i])
+	total_paths = ft_split(ft_getenv("PATH", env), ':', 0, 0);
+	s_commands = ft_split(commands, ' ', 0, 0);
+	while (total_paths[++i])
 	{
-		path_part = ft_strjoin(allpath[i], "/");
-		exec = ft_strjoin(path_part, s_cmd[0]);
-		free(path_part);
+		actual_path = ft_strjoin(total_paths[i], "/");
+		exec = ft_strjoin(actual_path, s_commands[0]);
+		free(actual_path);
 		if (access(exec, F_OK | X_OK) == 0)
 		{
-			ft_free_tab(s_cmd);
+			ft_free_mat(s_commands);
 			return (exec);
 		}
 		free(exec);
 	}
-	ft_free_tab(allpath);
-	ft_free_tab(s_cmd);
-	return (cmd);
+	ft_free_mat(total_paths);
+	ft_free_mat(s_commands);
+	return (commands);
 }

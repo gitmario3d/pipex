@@ -6,7 +6,7 @@
 /*   By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:37:45 by malena-b          #+#    #+#             */
-/*   Updated: 2024/02/22 12:02:09 by malena-b         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:54:43 by malena-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ char	*ft_itoa(int n);
  * @param c 
  * @return char** 
  */
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c, int i, int count);
 /**
  * @brief Reserva (con malloc(3)) y devuelve una substring de la string ’s’.
  * La substring empieza desde el índice ’start’ y tiene una 

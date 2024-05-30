@@ -6,13 +6,13 @@
 #    By: malena-b <mario3d93@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/18 08:41:33 by malena-b          #+#    #+#              #
-#    Updated: 2024/05/24 12:11:09 by malena-b         ###   ########.fr        #
+#    Updated: 2024/05/30 11:48:07 by malena-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_DIR = src/
 OBJ_DIR = obj/
